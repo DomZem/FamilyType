@@ -29,6 +29,5 @@ namespace FamilyUnitTests
             // Arrange & Act & Assert
             Assert.ThrowsException<ArgumentException>(() => new Person("Robert", "Kowalski", age));
         }
-
     }
 }

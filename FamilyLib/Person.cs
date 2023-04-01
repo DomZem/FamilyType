@@ -9,7 +9,7 @@
         public string FirstName
         {
             get => _firstName;
-            set
+            private set
             {
                 _firstName = normalizeName(value);
             }
@@ -27,7 +27,7 @@
         public int Age
         {
             get => _age;
-            set 
+            private set 
             {
                 if(value < 0)
                 {
@@ -37,6 +37,7 @@
             }
         }
 
+        #region == constructors ==
         public Person(string firstName, string familyName, int age)
         {
             FirstName = firstName;
@@ -44,8 +45,19 @@
             Age = age;
         }
 
-        public override string ToString() => $"{_firstName} {_familyName} ({_age})";
+        #endregion
 
+        #region == public method to modify properties ==
+
+        public void modifyFirstName(string name) => FirstName = name;
+
+        public void modifyFamilyName(string name) => FamilyName = name;
+
+        public void modifyAge(int age) => Age = age;
+
+        #endregion
+
+        #region == private methods == 
         private string normalizeName(string name)
         {
             if(name.Any(char.IsDigit) || String.IsNullOrEmpty(name))
@@ -53,8 +65,12 @@
                 throw new ArgumentException("Wrong name!");
             }
 
-            string result = name.Trim().ToLower();
+            string result = name.Replace(" ", String.Empty).Trim().ToLower();
             return char.ToUpper(result[0]) + result.Substring(1);
         }
+
+        #endregion
+
+        public override string ToString() => $"{_firstName} {_familyName} ({_age})";
     }
 }
