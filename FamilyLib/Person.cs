@@ -11,7 +11,7 @@
             get => _firstName;
             set
             {
-                _firstName = normalizeString(value);
+                _firstName = normalizeName(value);
             }
         }
 
@@ -20,14 +20,21 @@
             get => _familyName;
             set
             {
-                _familyName = normalizeString(value);
+                _familyName = normalizeName(value);
             }
         }
 
         public int Age
         {
             get => _age;
-            set => _age = value;
+            set 
+            {
+                if(value < 0)
+                {
+                    throw new ArgumentException("Age must be positive!");
+                }
+                _age = value;
+            }
         }
 
         public Person(string firstName, string familyName, int age)
@@ -39,9 +46,14 @@
 
         public override string ToString() => $"{_firstName} {_familyName} ({_age})";
 
-        private string normalizeString(string value)
+        private string normalizeName(string name)
         {
-            string result = value.Trim().ToLower();
+            if(name.Any(char.IsDigit) || String.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Wrong name!");
+            }
+
+            string result = name.Trim().ToLower();
             return char.ToUpper(result[0]) + result.Substring(1);
         }
     }

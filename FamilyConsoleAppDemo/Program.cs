@@ -8,10 +8,11 @@ namespace FamilyConsoleAppDemo
         {
             try
             {
-                Person p = new Person(familyName: "MOlenda", firstName: "krzysztof", age: 18);
+                Person p = new Person(familyName: "MOlenda", firstName: "krzysztof", age: -18);
                 Console.WriteLine(p);
             }
             catch (Exception e)
+            {
                 Console.WriteLine(e.Message);
             }
         }
